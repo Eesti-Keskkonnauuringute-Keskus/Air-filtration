@@ -300,7 +300,7 @@ def samm4_arvutus(cfg: Config, kysi: Kysija, muutus: dict) -> bool:
         return False
     if v == "a":
         arhiveeri([out], Path("_arhiiv") / f"{out.name}_{STAMP}")
-    joonised = kysi("Kas teha samas ka kaardid (fig1–fig5)?", {"j": "jah", "e": "ei"},
+    joonised = kysi("Kas teha samas ka kaardid (fig1–fig6)?", {"j": "jah", "e": "ei"},
                     "j" if cfg.make_figures else "e") == "j"
     t = time.time()
     from .run_daily import run_daily
