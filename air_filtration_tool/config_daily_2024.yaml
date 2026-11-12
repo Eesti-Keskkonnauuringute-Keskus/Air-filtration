@@ -1,0 +1,51 @@
+# =============================================================================
+# PRODUCTION CONFIG - PM2.5 air filtration 2024 (report Oct 2026, v2)
+# Daily method: Airviro daily C x ERA5-Land hourly-wind Vd(LAI) x daily LAI,
+# allocated to Statistics Estonia ecosystem types (level 2 -> level 1).
+#
+#   all steps:       python run_air_filtration.py --config config_daily_2024.yaml
+#   model only:      python -m air_filtration daily   --config config_daily_2024.yaml
+#   maps only:       python -m air_filtration figures --config config_daily_2024.yaml
+# Results: outputs_daily_2024/  (main = hybrid LAI 206.4 t; sensitivity = satellite LAI 109.8 t)
+#
+# Paths are relative to this folder (run the commands from here); '~' = home folder.
+# =============================================================================
+reference_year: 2024
+crs: "EPSG:3301"
+analysis_resolution: 1000
+approach: "advanced"
+pm_fraction: "PM2.5"
+temporal_resolution: "daily"
+output_unit: "t_per_ha_per_yr"        # guidance Eq. factor 3.1536e-3 (cell value reported as t/km2/yr)
+aggregation_convention: "guidance"    # national total = sum of cell values
+national_total_emissions_t: 4479.5    # national PM2.5 2024, NFR submission 2026 v.3 (mass-balance check)
+
+# --- analysis grid (L-EST97, 1 km) ---
+grid_origin: [370000, 6620000]        # x_left, y_top
+grid_size: [380, 250]                 # ncols, nrows
+
+# --- PM2.5 concentration: Airviro daily means, monitoring-corrected (supplied by EKUK) ---
+conc_daily_path: "inputs/netcdf_a1d_korr.nc"
+conc_daily_var: "a1d"
+
+# --- wind: ERA5-Land hourly 10 m u/v (downloaded automatically from the CDS into cache/) ---
+wind_source: "era5_hourly"
+era5_wind_dataset: "reanalysis-era5-land"
+cds_rc_path: null                     # null = default ~/.cdsapirc; or e.g. "~/.cdsapirc_cds"
+
+# --- LAI ---
+lai_dir: "cache/lai"                  # C3S Sentinel-3 LAI V4.1 dekads 2024 (downloaded automatically)
+lai_peak_path: "data/LAI_peak_PROBAV_20190630.tif"   # CLMS PROBA-V LAI 1 km V2 summer peak (in repo)
+lai_mode: "hybrid"                    # main estimate
+sensitivity_lai_modes: ["satellite"]  # sensitivity analysis (report section 2.5)
+evergreen_winter_correction: true
+
+# --- ecosystems + accounting area ---
+ecosystem_extent_path: "inputs/stat_EU_II.tif"      # Statistics Estonia extent map, level 2
+boundary_path: "data/maakond_20230601.shp"          # county boundaries, Maa- ja Ruumiamet (in repo)
+
+make_figures: true
+compare_10km: true                    # task 1.1.2: 1 km vs 10 km concentration input
+write_shapefile: true                 # 1 km grid polygons with results (.shp)
+output_dir: "outputs_daily_2024"
+cache_dir: "cache"

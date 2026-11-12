@@ -1,0 +1,187 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1560" height="1121" viewBox="0 0 1560 1121" font-family="DejaVu Sans, Arial, sans-serif">
+<defs><marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#555"/></marker></defs>
+<rect width="1560" height="1121" fill="#fff"/>
+<text x="780.0" y="38" font-size="22" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Õhufiltratsiooni (PM2.5) mudeli töövoog – air_filtration_tool v0.2.0</text>
+<text x="780.0" y="62" font-size="13.5" font-weight="normal" fill="#444" text-anchor="middle">Ööpäevane meetod: Airviro C × ERA5-Land tunnituulest Vd(LAI) × ööpäevane LAI → STAT ökosüsteemitüübid. Punased numbrid = käivitatav samm (vt tabel all).</text>
+<text x="30" y="100" font-size="15" font-weight="bold" fill="#2c6fbb" text-anchor="start">1  SISENDID</text>
+<text x="395" y="100" font-size="15" font-weight="bold" fill="#16877a" text-anchor="start">2  EELTÖÖTLUS</text>
+<text x="735" y="100" font-size="15" font-weight="bold" fill="#c8641a" text-anchor="start">3  ARVUTUS</text>
+<text x="1065" y="100" font-size="15" font-weight="bold" fill="#4b8b2a" text-anchor="start">4  KOONDAMINE</text>
+<text x="1300" y="100" font-size="15" font-weight="bold" fill="#666" text-anchor="start">5  VÄLJUNDID</text>
+<rect x="30" y="118" width="330" height="74" rx="8" fill="#eaf2fb" stroke="#2c6fbb" stroke-width="1.4"/>
+<text x="44" y="140" font-size="13.5" font-weight="bold" fill="#1d4f8a" text-anchor="start">Airviro PM2.5 ööpäevakeskmised (1 km)</text>
+<text x="44" y="160" font-size="12" font-weight="normal" fill="#333" text-anchor="start" font-family="DejaVu Sans Mono, Consolas, monospace">netcdf_a1d_korr.nc · muutuja a1d</text>
+<text x="44" y="177" font-size="12" font-weight="normal" fill="#333" text-anchor="start" font-family="DejaVu Sans Mono, Consolas, monospace">seirejaamadega korrigeeritud (EKUK)</text>
+<circle cx="356" cy="122" r="13" fill="#c0392b"/>
+<text x="356" y="127" font-size="14" font-weight="bold" fill="#fff" text-anchor="middle">3</text>
+<rect x="30" y="204" width="330" height="74" rx="8" fill="#eaf2fb" stroke="#2c6fbb" stroke-width="1.4"/>
+<text x="44" y="226" font-size="13.5" font-weight="bold" fill="#1d4f8a" text-anchor="start">ERA5-Land tunnituul u10 / v10</text>
+<text x="44" y="246" font-size="12" font-weight="normal" fill="#333" text-anchor="start" font-family="DejaVu Sans Mono, Consolas, monospace">cache/era5land_hourly_wind_YYYY_MM.nc</text>
+<text x="44" y="263" font-size="12" font-weight="normal" fill="#333" text-anchor="start" font-family="DejaVu Sans Mono, Consolas, monospace">CDS (Copernicus), ~30–60 min</text>
+<circle cx="356" cy="208" r="13" fill="#c0392b"/>
+<text x="356" y="213" font-size="14" font-weight="bold" fill="#fff" text-anchor="middle">1</text>
+<rect x="30" y="290" width="330" height="74" rx="8" fill="#eaf2fb" stroke="#2c6fbb" stroke-width="1.4"/>
+<text x="44" y="312" font-size="13.5" font-weight="bold" fill="#1d4f8a" text-anchor="start">Sentinel-3 LAI V4 dekaadid (300 m)</text>
+<text x="44" y="332" font-size="12" font-weight="normal" fill="#333" text-anchor="start" font-family="DejaVu Sans Mono, Consolas, monospace">cache/lai_YYYY/*.nc (~36 faili)</text>
+<text x="44" y="349" font-size="12" font-weight="normal" fill="#333" text-anchor="start" font-family="DejaVu Sans Mono, Consolas, monospace">CDS / CLMS</text>
+<circle cx="356" cy="294" r="13" fill="#c0392b"/>
+<text x="356" y="299" font-size="14" font-weight="bold" fill="#fff" text-anchor="middle">2</text>
+<rect x="30" y="376" width="330" height="57" rx="8" fill="#eaf2fb" stroke="#2c6fbb" stroke-width="1.4"/>
+<text x="44" y="398" font-size="13.5" font-weight="bold" fill="#1d4f8a" text-anchor="start">PROBA-V LAI suvine maksimum</text>
+<text x="44" y="418" font-size="12" font-weight="normal" fill="#333" text-anchor="start" font-family="DejaVu Sans Mono, Consolas, monospace">data/LAI_peak_PROBAV_20190630.tif</text>
+<rect x="30" y="445" width="330" height="57" rx="8" fill="#eaf2fb" stroke="#2c6fbb" stroke-width="1.4"/>
+<text x="44" y="467" font-size="13.5" font-weight="bold" fill="#1d4f8a" text-anchor="start">STAT ökosüsteemide kaart, II tase</text>
+<text x="44" y="487" font-size="12" font-weight="normal" fill="#333" text-anchor="start" font-family="DejaVu Sans Mono, Consolas, monospace">stat_EU_II.tif · 10 m · 30 klassi</text>
+<rect x="30" y="514" width="330" height="57" rx="8" fill="#eaf2fb" stroke="#2c6fbb" stroke-width="1.4"/>
+<text x="44" y="536" font-size="13.5" font-weight="bold" fill="#1d4f8a" text-anchor="start">Maakonnapiirid (arvestusala)</text>
+<text x="44" y="556" font-size="12" font-weight="normal" fill="#333" text-anchor="start" font-family="DejaVu Sans Mono, Consolas, monospace">data/maakond_20230601.shp</text>
+<rect x="385" y="110" width="330" height="387" rx="10" fill="#f3faf9" stroke="#16877a" stroke-width="1.4" stroke-dasharray="6 4"/>
+<text x="395" y="132" font-size="13" font-weight="bold" fill="#0f5f56" text-anchor="start">prepare_inputs()  →  cache/daily_YYYY/</text>
+<rect x="395" y="146" width="310" height="51" rx="8" fill="#e3f4f1" stroke="#16877a" stroke-width="1.4"/>
+<text x="407" y="167" font-size="13" font-weight="bold" fill="#0f5f56" text-anchor="start" font-family="DejaVu Sans Mono, Consolas, monospace">conc_daily.npy</text>
+<text x="407" y="186" font-size="12.5" font-weight="normal" fill="#222" text-anchor="start">C_d – PM2.5 iga päev, 1 km ruut</text>
+<rect x="395" y="211" width="310" height="68" rx="8" fill="#e3f4f1" stroke="#16877a" stroke-width="1.4"/>
+<text x="407" y="232" font-size="13" font-weight="bold" fill="#0f5f56" text-anchor="start" font-family="DejaVu Sans Mono, Consolas, monospace">vdlai_daily.npy / wind_daily.npy</text>
+<text x="407" y="251" font-size="12.5" font-weight="normal" fill="#222" text-anchor="start">Vd(LAI) tabelist A1 iga TUNNI tuulest,</text>
+<text x="407" y="268" font-size="12.5" font-weight="normal" fill="#222" text-anchor="start">→ päevakeskmine; lähim maismaapunkt</text>
+<rect x="395" y="293" width="310" height="68" rx="8" fill="#e3f4f1" stroke="#16877a" stroke-width="1.4"/>
+<text x="407" y="314" font-size="13" font-weight="bold" fill="#0f5f56" text-anchor="start" font-family="DejaVu Sans Mono, Consolas, monospace">lai_satellite_daily.npy</text>
+<text x="407" y="333" font-size="12.5" font-weight="normal" fill="#222" text-anchor="start">S3 dekaadid → päevad; okaspuude talve-</text>
+<text x="407" y="350" font-size="12.5" font-weight="normal" fill="#222" text-anchor="start">korrektsioon; hübriid = S3 käik × PROBA-V tipp</text>
+<rect x="395" y="375" width="310" height="68" rx="8" fill="#e3f4f1" stroke="#16877a" stroke-width="1.4"/>
+<text x="407" y="396" font-size="13" font-weight="bold" fill="#0f5f56" text-anchor="start" font-family="DejaVu Sans Mono, Consolas, monospace">ecosystem_area_m2.npy</text>
+<text x="407" y="415" font-size="12.5" font-weight="normal" fill="#222" text-anchor="start">ÖS II taseme pindala igas 1 km ruudus,</text>
+<text x="407" y="432" font-size="12.5" font-weight="normal" fill="#222" text-anchor="start">lõigatud maakonnapiiridega</text>
+<text x="395" y="463" font-size="12" font-weight="normal" fill="#0f5f56" text-anchor="start" font-style="italic">Vahemälu: kordusjooks sekunditega.</text>
+<text x="395" y="480" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="start">Sisendi muutmisel kustuta cache\daily_YYYY!</text>
+<path d="M360,155.0 C377.5,155.0 377.5,171.5 395,171.5" fill="none" stroke="#555" stroke-width="1.6" marker-end="url(#ar)"/>
+<path d="M360,241.0 C377.5,241.0 377.5,245.0 395,245.0" fill="none" stroke="#555" stroke-width="1.6" marker-end="url(#ar)"/>
+<path d="M360,327.0 C377.5,327.0 377.5,319.0 395,319.0" fill="none" stroke="#555" stroke-width="1.6" marker-end="url(#ar)"/>
+<path d="M360,404.5 C377.5,404.5 377.5,335.0 395,335.0" fill="none" stroke="#555" stroke-width="1.6" marker-end="url(#ar)"/>
+<path d="M360,473.5 C377.5,473.5 377.5,401.0 395,401.0" fill="none" stroke="#555" stroke-width="1.6" marker-end="url(#ar)"/>
+<path d="M360,542.5 C377.5,542.5 377.5,417.0 395,417.0" fill="none" stroke="#555" stroke-width="1.6" marker-end="url(#ar)"/>
+<rect x="735" y="150" width="295" height="108" rx="8" fill="#fdf0e6" stroke="#c8641a" stroke-width="1.4"/>
+<text x="747" y="172" font-size="13" font-weight="bold" fill="#8a4310" text-anchor="start">deposition()  –  iga 1 km ruut</text>
+<text x="882.5" y="202" font-size="13" font-weight="bold" fill="#222" text-anchor="middle">Dep = 8,64·10⁻⁶ · Σd Vd(LAI)·LAI·C</text>
+<text x="747" y="226" font-size="12.5" font-weight="normal" fill="#222" text-anchor="start">t/km²/a (juhendi konventsioon);</text>
+<text x="747" y="242" font-size="12.5" font-weight="normal" fill="#222" text-anchor="start">riigi summa = ruutude summa</text>
+<text x="735" y="274" font-size="12.5" font-weight="bold" fill="#8a4310" text-anchor="start">Jooksud (lai_mode / variandid):</text>
+<rect x="735" y="284" width="295" height="34" rx="8" fill="#f9d9bf" stroke="#c8641a" stroke-width="1.4"/>
+<text x="745" y="306" font-size="12.5" font-weight="bold" fill="#222" text-anchor="start">hybrid  – PÕHIHINNANG (D6)</text>
+<text x="1020" y="306" font-size="12.5" font-weight="bold" fill="#8a4310" text-anchor="end">206,43 t</text>
+<rect x="735" y="326" width="295" height="34" rx="8" fill="#fdf0e6" stroke="#c8641a" stroke-width="1.4"/>
+<text x="745" y="348" font-size="12.5" font-weight="normal" fill="#222" text-anchor="start">satellite – tundlikkus (D1)</text>
+<text x="1020" y="348" font-size="12.5" font-weight="bold" fill="#8a4310" text-anchor="end">109,84 t</text>
+<rect x="735" y="368" width="295" height="34" rx="8" fill="#fdf0e6" stroke="#c8641a" stroke-width="1.4"/>
+<text x="745" y="390" font-size="12.5" font-weight="normal" fill="#222" text-anchor="start">hybrid_10km – 1.1.2 võrdlus</text>
+<text x="1020" y="390" font-size="12.5" font-weight="bold" fill="#8a4310" text-anchor="end">206,41 t</text>
+<rect x="735" y="410" width="295" height="34" rx="8" fill="#fdf0e6" stroke="#c8641a" stroke-width="1.4"/>
+<text x="745" y="432" font-size="12.5" font-weight="normal" fill="#222" text-anchor="start">aastakeskmine C – diagnostika</text>
+<text x="1020" y="432" font-size="12.5" font-weight="bold" fill="#8a4310" text-anchor="end">198,72 t</text>
+<path d="M705,171.5 C720.0,171.5 720.0,204 735,204" fill="none" stroke="#555" stroke-width="1.6" marker-end="url(#ar)"/>
+<path d="M705,245.0 C720.0,245.0 720.0,204 735,204" fill="none" stroke="#555" stroke-width="1.6" marker-end="url(#ar)"/>
+<path d="M705,327.0 C720.0,327.0 720.0,204 735,204" fill="none" stroke="#555" stroke-width="1.6" marker-end="url(#ar)"/>
+<path d="M705,409.0 C720.0,409.0 720.0,204 735,204" fill="none" stroke="#555" stroke-width="1.6" marker-end="url(#ar)"/>
+<rect x="1065" y="150" width="205" height="118" rx="8" fill="#ecf5e6" stroke="#4b8b2a" stroke-width="1.4"/>
+<text x="1077" y="172" font-size="13" font-weight="bold" fill="#2f6015" text-anchor="start" font-family="DejaVu Sans Mono, Consolas, monospace">_tables()</text>
+<text x="1077" y="194" font-size="12.5" font-weight="normal" fill="#222" text-anchor="start">ÖS II tase (30 STAT klassi)</text>
+<text x="1077" y="211" font-size="12.5" font-weight="normal" fill="#222" text-anchor="start">        ↓ summeerimine</text>
+<text x="1077" y="228" font-size="12.5" font-weight="normal" fill="#222" text-anchor="start">ÖS I tase (Eurostati</text>
+<text x="1077" y="245" font-size="12.5" font-weight="normal" fill="#222" text-anchor="start">aruandlusklassid)</text>
+<rect x="1065" y="288" width="205" height="96" rx="8" fill="#ecf5e6" stroke="#4b8b2a" stroke-width="1.4"/>
+<text x="1077" y="310" font-size="13" font-weight="bold" fill="#2f6015" text-anchor="start">Kontrollid</text>
+<text x="1077" y="332" font-size="12.5" font-weight="normal" fill="#222" text-anchor="start">Σ ruudud = Σ klassid</text>
+<text x="1077" y="349" font-size="12.5" font-weight="normal" fill="#222" text-anchor="start">osakaal riigi heitest</text>
+<text x="1077" y="366" font-size="12.5" font-weight="normal" fill="#222" text-anchor="start">(4479,5 t → 4,6%)</text>
+<path d="M1030,204 C1047.5,204 1047.5,209 1065,209" fill="none" stroke="#555" stroke-width="1.6" marker-end="url(#ar)"/>
+<path d="M1030,301 C1047.5,301 1047.5,336 1065,336" fill="none" stroke="#555" stroke-width="1.6" marker-end="url(#ar)"/>
+<rect x="1292" y="110" width="251" height="382" rx="10" fill="#f6f6f6" stroke="#888" stroke-width="1.4" stroke-dasharray="6 4"/>
+<text x="1300" y="132" font-size="13" font-weight="bold" fill="#444" text-anchor="start" font-family="DejaVu Sans Mono, Consolas, monospace">outputs_daily_YYYY/</text>
+<rect x="1300" y="150" width="235" height="78" rx="8" fill="#ffffff" stroke="#888" stroke-width="1.4"/>
+<text x="1310" y="169" font-size="12" font-weight="bold" fill="#333" text-anchor="start" font-family="DejaVu Sans Mono, Consolas, monospace">air_filtration_daily_YYYY.xlsx</text>
+<text x="1310" y="186" font-size="12.5" font-weight="normal" fill="#222" text-anchor="start">summary, supply_level2_STAT,</text>
+<text x="1310" y="202" font-size="12.5" font-weight="normal" fill="#222" text-anchor="start">supply_level1_reporting,</text>
+<text x="1310" y="218" font-size="12.5" font-weight="normal" fill="#222" text-anchor="start">compare_1km_10km, metadata</text>
+<circle cx="1533" cy="154" r="13" fill="#c0392b"/>
+<text x="1533" y="159" font-size="14" font-weight="bold" fill="#fff" text-anchor="middle">4</text>
+<rect x="1300" y="236" width="235" height="46" rx="8" fill="#ffffff" stroke="#888" stroke-width="1.4"/>
+<text x="1310" y="255" font-size="12" font-weight="bold" fill="#333" text-anchor="start" font-family="DejaVu Sans Mono, Consolas, monospace">*.csv</text>
+<text x="1310" y="272" font-size="12.5" font-weight="normal" fill="#222" text-anchor="start">samad tabelid CSV-na</text>
+<circle cx="1533" cy="240" r="13" fill="#c0392b"/>
+<text x="1533" y="245" font-size="14" font-weight="bold" fill="#fff" text-anchor="middle">4</text>
+<rect x="1300" y="290" width="235" height="78" rx="8" fill="#ffffff" stroke="#888" stroke-width="1.4"/>
+<text x="1310" y="309" font-size="12" font-weight="bold" fill="#333" text-anchor="start" font-family="DejaVu Sans Mono, Consolas, monospace">GeoTIFF (1 km)</text>
+<text x="1310" y="326" font-size="12.5" font-weight="normal" fill="#222" text-anchor="start">PM25_deposition_*_hybrid/</text>
+<text x="1310" y="342" font-size="12.5" font-weight="normal" fill="#222" text-anchor="start">  satellite/hybrid_10km.tif</text>
+<text x="1310" y="358" font-size="12.5" font-weight="normal" fill="#222" text-anchor="start">PM25_concentration_*_1km/10km</text>
+<circle cx="1533" cy="294" r="13" fill="#c0392b"/>
+<text x="1533" y="299" font-size="14" font-weight="bold" fill="#fff" text-anchor="middle">4</text>
+<rect x="1300" y="376" width="235" height="46" rx="8" fill="#ffffff" stroke="#888" stroke-width="1.4"/>
+<text x="1310" y="395" font-size="12" font-weight="bold" fill="#333" text-anchor="start" font-family="DejaVu Sans Mono, Consolas, monospace">*_YYYY_1km_grid.shp</text>
+<text x="1310" y="412" font-size="12.5" font-weight="normal" fill="#222" text-anchor="start">kõik tulemused ruudu kaupa</text>
+<circle cx="1533" cy="380" r="13" fill="#c0392b"/>
+<text x="1533" y="385" font-size="14" font-weight="bold" fill="#fff" text-anchor="middle">4</text>
+<rect x="1300" y="430" width="235" height="46" rx="8" fill="#ffffff" stroke="#888" stroke-width="1.4"/>
+<text x="1310" y="449" font-size="12" font-weight="bold" fill="#333" text-anchor="start" font-family="DejaVu Sans Mono, Consolas, monospace">figures/fig1–fig6</text>
+<text x="1310" y="466" font-size="12.5" font-weight="normal" fill="#222" text-anchor="start">aruande kaardid, ratios.json</text>
+<circle cx="1533" cy="434" r="13" fill="#7f8c8d"/>
+<text x="1533" y="439" font-size="14" font-weight="bold" fill="#fff" text-anchor="middle">5</text>
+<rect x="1300" y="484" width="235" height="46" rx="8" fill="#ffffff" stroke="#888" stroke-width="1.4"/>
+<text x="1310" y="503" font-size="12" font-weight="bold" fill="#333" text-anchor="start" font-family="DejaVu Sans Mono, Consolas, monospace">run_metadata_*.json</text>
+<text x="1310" y="520" font-size="12.5" font-weight="normal" fill="#222" text-anchor="start">sisendid, versioonid, summad</text>
+<circle cx="1533" cy="488" r="13" fill="#c0392b"/>
+<text x="1533" y="493" font-size="14" font-weight="bold" fill="#fff" text-anchor="middle">4</text>
+<path d="M1270,209 C1285.0,209 1285.0,189.0 1300,189.0" fill="none" stroke="#555" stroke-width="1.6" marker-end="url(#ar)"/>
+<path d="M1270,209 C1285.0,209 1285.0,329.0 1300,329.0" fill="none" stroke="#555" stroke-width="1.6" marker-end="url(#ar)"/>
+<path d="M1270,336 C1285.0,336 1285.0,507.0 1300,507.0" fill="none" stroke="#555" stroke-width="1.6" marker-end="url(#ar)"/>
+<path d="M1270,336 C1285.0,336 1285.0,453.0 1300,453.0" fill="none" stroke="#555" stroke-width="1.6" marker-end="url(#ar)"/>
+<text x="30" y="633" font-size="17" font-weight="bold" fill="#c0392b" text-anchor="start">KÄIVITAMINE – mis järjekorras mida käivitada</text>
+<text x="30" y="655" font-size="12.5" font-weight="normal" fill="#444" text-anchor="start" font-style="italic">Anaconda Prompt või VS Code (Command Prompt terminal), tööriista juurkaustas air_filtration_tool\</text>
+<rect x="820" y="609" width="710" height="50" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.4"/>
+<text x="838" y="631" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="start">KÕIK SAMMUD ÜHE KÄSUGA (küsib iga sammu juures: uuesti või jäta alles):</text>
+<text x="838" y="650" font-size="13" font-weight="bold" fill="#111" text-anchor="start" font-family="DejaVu Sans Mono, Consolas, monospace">python run_air_filtration.py --config config_daily_YYYY.yaml      [--auto]  [--alates N]</text>
+<rect x="30" y="673" width="1500" height="58" rx="6" fill="#fbfbfb" stroke="#ddd" stroke-width="1.4"/>
+<circle cx="56" cy="702.0" r="13" fill="#7f8c8d"/>
+<text x="56" y="707.0" font-size="14" font-weight="bold" fill="#fff" text-anchor="middle">0</text>
+<text x="82" y="697" font-size="13.5" font-weight="bold" fill="#222" text-anchor="start">Keskkond + testid</text>
+<text x="82" y="716" font-size="12" font-weight="normal" fill="#777" text-anchor="start" font-style="italic">iga kord / soovi korral</text>
+<text x="470" y="697" font-size="12.5" font-weight="bold" fill="#111" text-anchor="start" font-family="DejaVu Sans Mono, Consolas, monospace">conda activate air-filtration</text>
+<text x="470" y="716" font-size="11.5" font-weight="normal" fill="#555" text-anchor="start" font-family="DejaVu Sans Mono, Consolas, monospace">pytest -q                                      → 18 passed</text>
+<rect x="30" y="737" width="1500" height="58" rx="6" fill="#fbfbfb" stroke="#ddd" stroke-width="1.4"/>
+<circle cx="56" cy="766.0" r="13" fill="#c0392b"/>
+<text x="56" y="771.0" font-size="14" font-weight="bold" fill="#fff" text-anchor="middle">1</text>
+<text x="82" y="761" font-size="13.5" font-weight="bold" fill="#222" text-anchor="start">Tuul (ERA5-Land, tunnine)</text>
+<text x="82" y="780" font-size="12" font-weight="normal" fill="#777" text-anchor="start" font-style="italic">1× aasta kohta</text>
+<text x="470" y="761" font-size="12.5" font-weight="bold" fill="#111" text-anchor="start" font-family="DejaVu Sans Mono, Consolas, monospace">python tuul_2024.py --config config_daily_YYYY.yaml</text>
+<text x="470" y="780" font-size="11.5" font-weight="normal" fill="#555" text-anchor="start" font-family="DejaVu Sans Mono, Consolas, monospace">→ cache/era5land_hourly_wind_YYYY_*.nc  (katkestusel käivita uuesti – jätkab)</text>
+<rect x="30" y="801" width="1500" height="58" rx="6" fill="#fbfbfb" stroke="#ddd" stroke-width="1.4"/>
+<circle cx="56" cy="830.0" r="13" fill="#c0392b"/>
+<text x="56" y="835.0" font-size="14" font-weight="bold" fill="#fff" text-anchor="middle">2</text>
+<text x="82" y="825" font-size="13.5" font-weight="bold" fill="#222" text-anchor="start">LAI (Sentinel-3 dekaadid)</text>
+<text x="82" y="844" font-size="12" font-weight="normal" fill="#777" text-anchor="start" font-style="italic">1× aasta kohta</text>
+<text x="470" y="825" font-size="12.5" font-weight="bold" fill="#111" text-anchor="start" font-family="DejaVu Sans Mono, Consolas, monospace">python -c "from air_filtration.acquire_lai import download_lai_dekads as d; d(YYYY, 'cache/lai_YYYY',</text>
+<text x="470" y="844" font-size="11.5" font-weight="normal" fill="#555" text-anchor="start" font-family="DejaVu Sans Mono, Consolas, monospace">          area=[59.9, 21.4, 57.3, 28.3])"</text>
+<rect x="30" y="865" width="1500" height="58" rx="6" fill="#fbfbfb" stroke="#ddd" stroke-width="1.4"/>
+<circle cx="56" cy="894.0" r="13" fill="#c0392b"/>
+<text x="56" y="899.0" font-size="14" font-weight="bold" fill="#fff" text-anchor="middle">3</text>
+<text x="82" y="889" font-size="13.5" font-weight="bold" fill="#222" text-anchor="start">Seadistus</text>
+<text x="82" y="908" font-size="12" font-weight="normal" fill="#777" text-anchor="start" font-style="italic">uue aasta / sisendi korral</text>
+<text x="470" y="889" font-size="12.5" font-weight="bold" fill="#111" text-anchor="start" font-family="DejaVu Sans Mono, Consolas, monospace">copy config_daily_2024.yaml config_daily_YYYY.yaml</text>
+<text x="470" y="908" font-size="11.5" font-weight="normal" fill="#555" text-anchor="start" font-family="DejaVu Sans Mono, Consolas, monospace">muuda: reference_year, conc_daily_path, national_total_emissions_t, lai_dir, output_dir (+ ecosystem_extent_path)</text>
+<rect x="30" y="929" width="1500" height="58" rx="6" fill="#fbfbfb" stroke="#ddd" stroke-width="1.4"/>
+<circle cx="56" cy="958.0" r="13" fill="#c0392b"/>
+<text x="56" y="963.0" font-size="14" font-weight="bold" fill="#fff" text-anchor="middle">4</text>
+<text x="82" y="953" font-size="13.5" font-weight="bold" fill="#222" text-anchor="start">Arvutus (kõik jooksud + tabelid, tif, shp, kaardid)</text>
+<text x="82" y="972" font-size="12" font-weight="normal" fill="#777" text-anchor="start" font-style="italic">iga kord</text>
+<text x="470" y="953" font-size="12.5" font-weight="bold" fill="#111" text-anchor="start" font-family="DejaVu Sans Mono, Consolas, monospace">python -m air_filtration daily --config config_daily_YYYY.yaml</text>
+<text x="470" y="972" font-size="11.5" font-weight="normal" fill="#555" text-anchor="start" font-family="DejaVu Sans Mono, Consolas, monospace">→ prepare_inputs → deposition (hybrid, satellite, 10 km) → _tables → outputs_daily_YYYY/</text>
+<rect x="30" y="993" width="1500" height="58" rx="6" fill="#fbfbfb" stroke="#ddd" stroke-width="1.4"/>
+<circle cx="56" cy="1022.0" r="13" fill="#7f8c8d"/>
+<text x="56" y="1027.0" font-size="14" font-weight="bold" fill="#fff" text-anchor="middle">5</text>
+<text x="82" y="1017" font-size="13.5" font-weight="bold" fill="#222" text-anchor="start">Ainult kaardid uuesti (valikuline)</text>
+<text x="82" y="1036" font-size="12" font-weight="normal" fill="#777" text-anchor="start" font-style="italic">kujunduse muutmisel</text>
+<text x="470" y="1017" font-size="12.5" font-weight="bold" fill="#111" text-anchor="start" font-family="DejaVu Sans Mono, Consolas, monospace">python -m air_filtration figures --config config_daily_YYYY.yaml</text>
+<text x="470" y="1036" font-size="11.5" font-weight="normal" fill="#555" text-anchor="start" font-family="DejaVu Sans Mono, Consolas, monospace">(figures.py muudatuste järel; kasutab cache't, arvutust ei korrata)</text>
+<text x="30" y="1077" font-size="13" font-weight="bold" fill="#333" text-anchor="start">Üksikkäsud (ilma run_air_filtration.py-ta) – kordusjooks: samm 0 → 4.   Uus aasta: 0 → 1 → 2 → 3 → 4.   Sisendfaili muutmisel kustuta enne sammu 4 kaust cache\daily_YYYY.</text>
+<text x="30" y="1099" font-size="12" font-weight="normal" fill="#777" text-anchor="start" font-style="italic">Ära kasuta: CAMS kontsentratsiooni (~2,7× kõrgem), wind_source: era5_monthly (tuul −66% Vd), ERA5 0,25° tuult (rannikuruudud merel).</text>
+</svg>

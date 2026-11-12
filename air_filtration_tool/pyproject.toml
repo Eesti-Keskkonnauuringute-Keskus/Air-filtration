@@ -1,0 +1,24 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "air_filtration"
+version = "0.2.0"
+description = "PM2.5 air-filtration ecosystem-service model (Eurostat guidance note)"
+requires-python = ">=3.11"
+dependencies = [
+  "numpy>=1.24", "pandas>=2.0", "pyyaml>=6.0",
+  "rasterio>=1.3", "geopandas>=0.14", "shapely>=2.0", "pyproj>=3.5",
+  "xarray>=2023.1", "netCDF4>=1.6",
+  "cdsapi>=0.7", "openpyxl>=3.1", "scipy>=1.10", "matplotlib>=3.7",
+]
+
+[project.scripts]
+air-filtration = "air_filtration.cli:main"
+
+[tool.setuptools]
+packages = ["air_filtration"]
+
+[tool.pytest.ini_options]
+pythonpath = ["."]

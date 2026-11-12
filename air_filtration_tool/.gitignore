@@ -1,0 +1,25 @@
+# --- andmed: allalaetavad / suured (laaditakse uuesti tuul_2024.py ja acquire_lai abil) ---
+cache/
+# --- arvutuse tulemused (tekivad jooksuga) ---
+outputs*/
+# --- vanad katsejooksud ---
+_arhiiv/
+# --- sisendandmed (maakonnapiirid: Maa- ja Ruumiamet, laadida ise; vt README) ---
+inputs/*
+!inputs/.gitkeep
+# --- isiklikud / masinapõhised ---
+.cdsapirc*
+*.cdsapirc*
+.claude/
+# --- Python ---
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+build/
+dist/
+.ipynb_checkpoints/
+# --- GIS / OS ---
+*.aux.xml
+Thumbs.db
+.DS_Store
