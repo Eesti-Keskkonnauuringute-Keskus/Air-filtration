@@ -187,11 +187,13 @@ def run_daily(config_path: str | Path | None = None, cfg: Config | None = None) 
     totals = {m: float(s.sum()) for m, (_, s) in results.items()}
     mb = mass_balance_check(totals[main], cfg.national_total_emissions_t)
     yr = cfg.reference_year
+    def pct(t):
+        return t / cfg.national_total_emissions_t * 100 if cfg.national_total_emissions_t else None
     summary = pd.DataFrame([{"run": m, "description": LAI_LABEL[m], "total_t_per_yr": totals[m],
-                             "pct_of_national_PM25_emissions": (totals[m] / cfg.national_total_emissions_t * 100)
-                             if cfg.national_total_emissions_t else None} for m in results]
+                             "pct_of_national_PM25_emissions": pct(totals[m])} for m in results]
                            + [{"run": f"{main}_annual_C", "description": "Main estimate with annual-mean C (diagnostic)",
-                               "total_t_per_yr": float(sup_ann.sum()), "pct_of_national_PM25_emissions": None}])
+                               "total_t_per_yr": float(sup_ann.sum()),
+                               "pct_of_national_PM25_emissions": pct(float(sup_ann.sum()))}])
     meta = {"reference_year": yr, "size_fraction": cfg.pm_fraction,
             "vd_approach": "advanced: Vd = Vd(LAI)(hourly wind) x LAI, Table A1",
             "temporal_resolution": "daily", "wind": f"{cfg.era5_wind_dataset} hourly 10 m",
